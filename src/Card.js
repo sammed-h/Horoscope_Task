@@ -60,6 +60,8 @@ const CardComponent = () => {
 
   const closeMOdal = () => {
     setOpenModal(false);
+    setName("");
+    setEmail("");
   };
 
   const onSubmit = () => {
@@ -72,11 +74,11 @@ const CardComponent = () => {
       return;
     }
 
-    if (name == "") {
+    if (!/^[a-zA-Z\-]+$/.test(name)) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Please Enter Username!",
+        text: "Please Enter Valid Username!",
       });
       return;
     }
@@ -84,7 +86,7 @@ const CardComponent = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Please Select Email!",
+        text: "Please Select Valid Email!",
       });
       return;
     }
@@ -122,12 +124,16 @@ const CardComponent = () => {
         });
         console.error(error);
       });
+    setSelectSign("");
+    setSelectedDate("");
+    setHoroscopeData({});
   };
 
   const onCacel = () => {
     setSelectSign("");
     setSelectedDate("");
     setName("");
+    setEmail("");
     setHoroscopeData({});
   };
   return (
@@ -155,7 +161,7 @@ const CardComponent = () => {
                         className="background"
                         style={
                           item.name == selectSign
-                            ? { boxShadow: "0 0 20px black" }
+                            ? { boxShadow: "0 0 40px yellow" }
                             : { boxShadow: "none" }
                         }
                       >
@@ -197,6 +203,7 @@ const CardComponent = () => {
                   type="text"
                   placeholder="User Name"
                   className="form-control"
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -205,6 +212,7 @@ const CardComponent = () => {
                   type="mail"
                   placeholder="Enter Email"
                   className="form-control"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
